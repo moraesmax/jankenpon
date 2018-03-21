@@ -1,0 +1,9 @@
+@mixin stroke($width, $color) {
+  $negative : "-" + $width;
+  $positive :       $width;
+  text-shadow:
+    #{$negative} #{$negative} 0 #{$color},
+    #{$positive} #{$negative} 0 #{$color},
+    #{$negative} #{$positive} 0 #{$color},
+    #{$positive} #{$positive} 0 #{$color}; 
+}

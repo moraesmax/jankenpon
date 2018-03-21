@@ -1,0 +1,73 @@
+
+/**
+jankenpon - v0.0.1
+*/
+
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
+@import url("https://fonts.googleapis.com/css?family=Rock+Salt");
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+html, body {
+  display: block;
+  width: 100%;
+  height: 100%; }
+
+.screen {
+  display: block;
+  width: 100%;
+  height: 100%; }
+  .screen.intro-screen {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+        justify-content: center;
+    -ms-flex-align: center;
+        align-items: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    background-image: url(../img/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center; }
+    .screen.intro-screen .content {
+      padding: 50px;
+      display: block; }
+      .screen.intro-screen .content .logo {
+        display: block;
+        margin: 0 auto 200px;
+        animation: float 3s ease-in-out infinite;
+        font-family: 'Rock Salt', cursive;
+        font-size: 100px;
+        color: #FF4500;
+        text-shadow: -5px -5px 0 #000, 5px -5px 0 #000, -5px 5px 0 #000, 5px 5px 0 #000; }
+      .screen.intro-screen .content .menu {
+        display: block;
+        text-align: center; }
+        .screen.intro-screen .content .menu .item {
+          display: inline-block;
+          font-family: 'Press Start 2P', cursive;
+          font-size: 40px;
+          text-decoration: none;
+          color: #fff;
+          text-transform: uppercase;
+          margin: 30px auto;
+          transition: all 200ms ease-in;
+          text-shadow: -4px -4px 0 #000, 4px -4px 0 #000, -4px 4px 0 #000, 4px 4px 0 #000; }
+          .screen.intro-screen .content .menu .item:hover {
+            transform: scale(1.1); }
+          .screen.intro-screen .content .menu .item.off {
+            opacity: 0.5;
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; }
+            .screen.intro-screen .content .menu .item.off:hover {
+              transform: none; }
+
+@keyframes float {
+  0% {
+    transform: translatey(0px); }
+  50% {
+    transform: translatey(-20px); }
+  100% {
+    transform: translatey(0px); } }
