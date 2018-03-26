@@ -4,14 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" integrity="sha256-t2/7smZfgrST4FS1DT0bs/KotCM74XlcqZN5Vu7xlrw=" crossorigin="anonymous" />
   <link rel="stylesheet" href="res/css/app.min.css">
   <title>じゃんけんぽん</title>
 </head>
 <body>
-  <div id="intro" class="screen intro-screen">
+  <div id="intro" class="screen intro-screen hide">
     <div class="content">
       <h1 class="logo">Jan Ken Pon</h1>
       <nav class="menu hide">
@@ -42,6 +41,66 @@
           <a href="javascript:void(0)">Cancel</a>
         </div>
       </div>
+    </div>
+  </div>
+  <div id="battle" class="screen battle-screen">
+    <div class="content">
+      <header>
+        <div class="player-info left">
+          <div class="profile">
+            <img src="res/img/characters/liza.png" alt="Liza">
+          </div>
+          <div class="hp-bar">
+            <div class="bar">
+              <hr>
+              <span>100/100</span>
+            </div>
+          </div>
+          <div class="special-bar">
+              <div class="bar">
+                  <hr>
+                  <span>100/100</span>
+                </div>
+          </div>
+        </div>
+        <div class="rounds">
+          <h3>8<br><small>round</small></h3>
+        </div>
+        <div class="player-info right">
+          <div class="profile">
+            <img src="res/img/characters/mike.png" alt="Liza">
+          </div>
+          <div class="hp-bar">
+            <div class="bar">
+              <hr>
+              <span>100/100</span>
+            </div>
+          </div>
+          <div class="special-bar">
+              <div class="bar">
+                  <hr>
+                  <span>100/100</span>
+                </div>
+          </div>
+        </div>
+      </header>
+      <main>
+        <div class="left">
+          <i class="far fa-hand-rock"></i>
+        </div>
+        <div class="right">
+            <i class="far fa-hand-rock"></i>
+          </div>
+      </main>
+      <footer>
+        <nav>
+          <a href="javascript:void(0)" data-icon="rock"><i class="far fa-hand-rock"></i></a>
+          <a href="javascript:void(0)" data-icon="paper"><i class="far fa-hand-paper"></i></a>
+          <a href="javascript:void(0)" data-icon="scissors"><i class="far fa-hand-scissors"></i></a>
+          <a href="javascript:void(0)" data-icon="lizard"><i class="far fa-hand-lizard"></i></a>
+          <a href="javascript:void(0)" data-icon="spock"><i class="far fa-hand-spock"></i></a>
+        </nav>
+      </footer>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
