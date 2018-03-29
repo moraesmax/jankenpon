@@ -38,6 +38,34 @@ html, body {
     right: 0;
     margin: auto; }
 
+.msg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: rgba(0, 0, 0, 0.75); }
+  .msg .content {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+        align-items: center;
+    -ms-flex-pack: center;
+        justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
+    .msg .content .msg-text {
+      font-family: 'Rock Salt', cursive;
+      font-size: 80px;
+      color: #FF4500;
+      text-align: center;
+      text-shadow: -4px -4px 0 #000, 4px -4px 0 #000, -4px 4px 0 #000, 4px 4px 0 #000;
+      display: block; }
+
 .bar {
   width: 400px;
   height: 40px;
@@ -267,6 +295,7 @@ html, body {
             .screen.battle-screen .content footer nav a i {
               transform: scaleX(-1); }
       .screen.battle-screen .content main {
+        overflow: hidden;
         display: -ms-flexbox;
         display: flex;
         -ms-flex-align: center;

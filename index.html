@@ -10,77 +10,62 @@
   <title>じゃんけんぽん</title>
 </head>
 <body>
-  <div id="intro" class="screen intro-screen hide">
+  <div id="intro" class="screen intro-screen js-intro">
     <div class="content">
       <h1 class="logo">Jan Ken Pon</h1>
-      <nav class="menu hide">
-        <a href="javascript:void(0)" class="item">New Game</a><br>
-        <a href="javascript:void(0)" class="item off">Continue</a>
+      <nav class="menu js-start-menu" style="display: none;">
+        <a href="javascript:void(0)" class="item js-new-game">New Game</a><br>
+        <a href="javascript:void(0)" class="item off js-continue-game">Continue</a>
       </nav>
-      <div class="choose-character">
+      <div class="choose-character js-choose-character" style="display: none;">
         <h2>Choose your character:</h2>
-        <nav class="character-list">
-          <a class="character" href="javascript:void(0)">
-            <div class="profile"><img src="res/img/characters/ariel.png" alt="Ariel"></div>
-            <span>Ariel</span> 
-          </a>
-          <a class="character" href="javascript:void(0)">
-            <div class="profile"><img src="res/img/characters/liza.png" alt="Liza"></div>
-            <span>Liza</span> 
-          </a>
-          <a class="character" href="javascript:void(0)">
-            <div class="profile"><img src="res/img/characters/mike.png" alt="Mike"></div>
-            <span>Mike</span> 
-          </a>
-          <a class="character" href="javascript:void(0)">
-            <div class="profile"><img src="res/img/characters/computer.png" alt="Computer"></div>
-            <span>Computer</span> 
-          </a>
+        <nav class="character-list js-character-list">
+          
         </nav>
         <div class="go-back">
-          <a href="javascript:void(0)">Cancel</a>
+          <a href="javascript:void(0)" class="js-back-to-start-menu">Cancel</a>
         </div>
       </div>
     </div>
   </div>
-  <div id="battle" class="screen battle-screen">
+  <div id="battle" class="screen battle-screen js-battle" style="display: none;">
     <div class="content">
       <header>
-        <div class="player-info left">
+        <div class="player-info left js-player-one">
           <div class="profile">
             <img src="res/img/characters/liza.png" alt="Liza">
           </div>
           <div class="hp-bar">
             <div class="bar">
-              <hr>
-              <span>100/100</span>
+              <hr class="js-hp-bar">
+              <span class="js-hp-value">100/100</span>
             </div>
           </div>
           <div class="special-bar">
               <div class="bar">
-                  <hr>
-                  <span>100/100</span>
-                </div>
+                <hr class="js-special-bar">
+                <span class="js-special-value">100/100</span>
+              </div>
           </div>
         </div>
-        <div class="rounds">
+        <div class="rounds js-rounds">
           <h3>8<br><small>round</small></h3>
         </div>
-        <div class="player-info right">
+        <div class="player-info right js-player-two">
           <div class="profile">
             <img src="res/img/characters/mike.png" alt="Liza">
           </div>
           <div class="hp-bar">
             <div class="bar">
-              <hr>
-              <span>100/100</span>
+              <hr class="js-hp-bar">
+              <span class="js-hp-value">100/100</span>
             </div>
           </div>
           <div class="special-bar">
               <div class="bar">
-                  <hr>
-                  <span>100/100</span>
-                </div>
+                <hr class="js-special-bar">
+                <span class="js-special-value">100/100</span>
+              </div>
           </div>
         </div>
       </header>
@@ -93,16 +78,29 @@
           </div>
       </main>
       <footer>
-        <nav>
-          <a href="javascript:void(0)" data-icon="rock"><i class="far fa-hand-rock"></i></a>
-          <a href="javascript:void(0)" data-icon="paper"><i class="far fa-hand-paper"></i></a>
-          <a href="javascript:void(0)" data-icon="scissors"><i class="far fa-hand-scissors"></i></a>
-          <a href="javascript:void(0)" data-icon="lizard"><i class="far fa-hand-lizard"></i></a>
-          <a href="javascript:void(0)" data-icon="spock"><i class="far fa-hand-spock"></i></a>
+        <nav class="js-move-list">
         </nav>
       </footer>
     </div>
   </div>
+  <div class="msg js-msg" style="display: none;">
+    <div class="content">
+        <div class="msg-text js-msg-text">Player One Special</div>
+    </div>
+  </div>
+  <script type="template/game" class="js-template-character">
+    <a class="character js-select-character" data-character="" href="javascript:void(0)">
+      <div class="profile"><img src="res/img/characters/ariel.png" alt="Ariel"></div>
+      <span>Ariel</span> 
+    </a>
+  </script>
+  <script type="template/game" class="js-template-move">
+    <a href="javascript:void(0)" class="js-move" data-icon="rock"><i class="far fa-hand-rock"></i></a>
+  </script>
+  <div class="hide">
+    <audio class="js-background-theme" src="songs/background.mp3" loop></audio>
+  </div>
   <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <script src="res/js/app.min.js"></script>
 </body>
 </html>
