@@ -3,7 +3,7 @@
 define( 'FULL_HEALTH',     100 );
 define( 'FULL_SPECIAL',    100 );
 define( 'HEALTH_DECREASE',  25 );
-define( 'HEALTH_INCREASE',  50 );
+define( 'HEALTH_INCREASE',  25 );
 define( 'SPECIAL_INCREASE', 35 );
 
 class Player {
