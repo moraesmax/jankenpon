@@ -62,108 +62,26 @@ $( document ).ready( function() {
       game.renderBattleArenaHeader( gameData );
       game.renderBattleArenaFooter( gameData );
 
-      $( ".js-move" ).click( function() {
-        $.ajax({
-          method: "PUT",
-          url: "php/game.php?move=" + $( this ).attr( "data-icon" ),
-        })
-          .done( function( gameData ) {
-
-            $( "main .left i" ).one(
-              'webkitAnimationEnd oAnimationEnd msAnimationEnd animationend', 
-              function() {
-                $( this ).removeClass().addClass("far fa-hand-" + gameData.playerOne.lastMovePlayed);
-                if( gameData.lastRoundWinner === 1 ) {
-                  setTimeout( function() {
-                    game.updateBattleArena( gameData );
-
-                    if( gameData.playerTwo.specialPoints === 100 ) {
-                      game.showMsg( "Player Two Special Time!!!!" ); 
-                      $.get( "php/special.php?player=playerTwo", function( gameData ) {
-                        setTimeout( function() {
-                          game.hideMsg();
-                        }, 2000);
-                        game.updateBattleArena( gameData );
-                      });
-                    }
-
-                    if( gameData.playerTwo.healthPoints === 0 ) {
-                      game.showMsg( "Player One Wins!!!!" ); 
-                      $.ajax({
-                        method: "DELETE",
-                        url: "php/game.php",
-                      })
-                      .done( function() {
-                        setTimeout( function() {
-                          location.reload();
-                        }, 4000);
-                      });
-                    }
-
-                    $( "main .left" ).addClass( "winner" );
-                    $( "main .left" ).one(
-                      'webkitAnimationEnd oAnimationEnd msAnimationEnd animationend', 
-                      function() {
-                        $( this ).removeClass( "winner" );
-                      }
-                    );
-                  }, 500);
-                }
-              }
-            );
-
-            $( "main .right i" ).one(
-              'webkitAnimationEnd oAnimationEnd msAnimationEnd animationend', 
-              function() {
-                $( this ).removeClass().addClass("far fa-hand-" + gameData.playerTwo.lastMovePlayed);
-                if( gameData.lastRoundWinner === 2 ) {
-                  setTimeout( function() {
-                    game.updateBattleArena( gameData );
-
-                    if( gameData.playerOne.specialPoints === 100 ) {
-                      game.showMsg( "Player One Special Time!!!!" ); 
-                      $.get( "php/special.php?player=playerOne", function( gameData ) {
-                        setTimeout( function() {
-                          game.hideMsg();
-                        }, 2000);
-                        game.updateBattleArena( gameData );
-                      });
-                    }
-
-                    if( gameData.playerOne.healthPoints === 0 ) {
-                      game.showMsg( "Player Two Wins!!!!" ); 
-                      $.ajax({
-                        method: "DELETE",
-                        url: "php/game.php",
-                      })
-                      .done( function() {
-                        setTimeout( function() {
-                          location.reload();
-                        }, 4000);
-                      });
-                    }
-
-                    $( "main .right" ).addClass( "winner" );
-                    $( "main .right" ).one(
-                      'webkitAnimationEnd oAnimationEnd msAnimationEnd animationend', 
-                      function() {
-                        $( this ).removeClass( "winner" );
-                      }
-                    );
-                  }, 500);
-                }
-              }
-            );
-            
-            $( "main .left i" ).removeClass().addClass( "shaking far fa-hand-rock" );
-            $( "main .right i" ).removeClass().addClass( "shaking far fa-hand-rock" );
-
-
-          });
-      });
-
       $( ".js-intro" ).slideUp( "slow", function() {
-        $( ".js-battle" ).slideDown( "slow" );
+        $( ".js-battle" ).slideDown( "slow" , function() {
+          if(gameData.playerOne.name == "Computer") {
+            $( document ).on( "readyToAction", function() {
+              var possibleMoves = [];
+              for (var move in gameData.moves) {
+                    possibleMoves.push(move);
+              }
+              setTimeout(function() {
+                var move = possibleMoves[ Math.floor( Math.random() * possibleMoves.length ) ];
+                game.makeMove(possibleMoves[ possibleMoves.length * Math.random() << 0 ] );
+              }, 1000);
+            });
+            $( document ).trigger( "readyToAction" );
+          } else {
+            $( ".js-move" ).click( function() {
+              game.makeMove($( this ).attr( "data-icon" ));
+            });
+          }
+        });
       });
 
     },
@@ -171,6 +89,9 @@ $( document ).ready( function() {
       game.renderBattleArenaHeader( gameData );
     },
     renderBattleArenaHeader : function( gameData ) {
+      
+      console.log("updating header data");
+      
       $( ".js-player-one .profile img" ).attr( "src", "res/img/characters/" + gameData.playerOne.icon );
       $( ".js-player-one .profile img" ).attr( "alt", gameData.playerOne.name );
 
@@ -188,6 +109,11 @@ $( document ).ready( function() {
       $( ".js-player-two .js-special-value" ).html( gameData.playerTwo.specialPoints + "/100" );
 
       $( ".js-rounds h3" ).html( gameData.round + "<br><small>round</small>" );
+      
+      console.log("ready to action!");  
+
+      $( document ).trigger( "readyToAction" );
+      
     },
     renderBattleArenaFooter : function( gameData ) {
       for (var move in gameData.moves) {
@@ -203,6 +129,83 @@ $( document ).ready( function() {
     },
     hideMsg : function () {
       $( ".js-msg ").fadeOut();
+    },
+    makeMove : function(move) {
+      console.log("making move: " + move);
+      $.ajax({
+        method: "PUT",
+        url: "php/game.php?move=" + move,
+      })
+        .done( function( gameData ) {
+          console.log("finished move: " + move);
+          $( "main .left i" ).one(
+            'webkitAnimationEnd oAnimationEnd msAnimationEnd animationend', 
+            function() {
+              console.log("finished hand animation");
+              $( "main .left i" ).removeClass().addClass("far fa-hand-" + gameData.playerOne.lastMovePlayed);
+              $( "main .right i" ).removeClass().addClass("far fa-hand-" + gameData.playerTwo.lastMovePlayed);
+
+              if( gameData.lastRoundWinner > 0) {
+                console.log("someone win the round");
+                setTimeout( function() {
+                  if( gameData.playerOne.specialPoints === 100 || gameData.playerTwo.specialPoints === 100 ) {
+                    console.log("someone will use special");
+                    var msgPlayer = ( gameData.playerOne.specialPoints === 100 ) ? "Player One" : "Player Two";
+                    var requestPlayer = ( gameData.playerOne.specialPoints === 100 ) ? "playerOne" : "playerTwo";
+                    game.showMsg( msgPlayer + " Special Time!!!!" ); 
+                    $.get( "php/special.php?player=" + requestPlayer, function( gameData ) {
+                      console.log("someone used special");
+                      setTimeout( function() {
+                        game.hideMsg();
+                        game.updateBattleArena( gameData );
+                      }, 2000);
+                    });
+                    return true;
+                  } if( gameData.playerOne.healthPoints === 0 || gameData.playerTwo.healthPoints === 0) {
+                    console.log("We have a winner !!");
+                    var msgPlayer = ( gameData.playerOne.healthPoints === 0 ) ? "Player Two" : "Player One";
+                    game.showMsg( msgPlayer + " Wins!!!!" ); 
+                    $.ajax({
+                      method: "DELETE",
+                      url: "php/game.php",
+                    })
+                    .done( function() {
+                      setTimeout( function() {
+                        location.reload();
+                      }, 4000);
+                    });
+                    return true;                    
+                  } else {
+                    setTimeout( function() {
+                      game.updateBattleArena(gameData);
+                    }, 1000);
+
+                    var winnerSelector = ( gameData.lastRoundWinner === 1 ) ? ".left" : ".right";
+                    $( "main " + winnerSelector ).addClass( "winner" );
+                    $( "main " + winnerSelector ).one(
+                      'webkitAnimationEnd oAnimationEnd msAnimationEnd animationend', 
+                      function() {
+                        $( this ).removeClass( "winner" );
+                        console.log("finished winner animation");
+                      }
+                    );
+                  }
+                }, 500);
+              } else {
+                console.log("Tie");
+                var timeout = (gameData.playerOne == "Computer") ? 1500 : 0;
+                setTimeout(function() {
+                  game.updateBattleArena( gameData );
+                }, timeout);
+              }
+            }
+          );
+          
+          $( "main .left i" ).removeClass().addClass( "shaking far fa-hand-rock" );
+          $( "main .right i" ).removeClass().addClass( "shaking far fa-hand-rock" );
+
+          
+        });
     }
   };
   game.startGameIntro();
